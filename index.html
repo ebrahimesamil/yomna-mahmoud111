@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دعوة زفاف محمود ويمنى</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: radial-gradient(circle at center, #380a14 0%, #170207 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Amiri', serif;
+            color: #f7ede2;
+            overflow: hidden;
+        }
+
+        .invitation-wrapper {
+            position: relative;
+            width: 100vw;
+            max-width: 430px;
+            height: 100vh;
+            max-height: 860px;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.85);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* غطاء البداية لضمان عمل الصوت بسلاسة على جميع الهواتف */
+        .play-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(25, 4, 9, 0.75);
+            backdrop-filter: blur(8px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .play-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-btn {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f5d485 0%, #d4af37 50%, #997819 100%);
+            border: 2px solid #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #380a14;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            margin-bottom: 18px;
+            animation: pulse 1.6s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .title-text {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 8px;
+        }
+
+        .hint-text {
+            font-size: 1.05rem;
+            color: #f7ede2;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="invitation-wrapper">
+    <!-- غطاء التشغيل الأولي -->
+    <div class="play-overlay" id="overlay" onclick="startPlay()">
+        <div class="play-btn">▶</div>
+        <div class="title-text">محمود &amp; يمنى</div>
+        <div class="hint-text">اضغط لفتح بطاقة الدعوة 💌</div>
+    </div>
+
+    <!-- الفيديو الأساسي -->
+    <video id="weddingVid" playsinline loop preload="auto">
+        <source src="video.mp4" type="video/mp4">
+        متصفحك لا يدعم تشغيل هذا الفيديو.
+    </video>
+</div>
+
+<script>
+    const vid = document.getElementById('weddingVid');
+    const overlay = document.getElementById('overlay');
+
+    function startPlay() {
+        vid.play().then(() => {
+            overlay.classList.add('hidden');
+        }).catch(() => {
+            vid.controls = true;
+            overlay.classList.add('hidden');
+        });
+    }
+
+    // السماح بإيقاف وإعادة تشغيل الفيديو عند الضغط على الشاشة
+    vid.addEventListener('click', () => {
+        if (vid.paused) {
+            vid.play();
+        } else {
+            vid.pause();
+        }
+    });
+</script>
+
+</body>
+</html>
